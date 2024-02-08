@@ -1,0 +1,25 @@
+{
+    "manifest_version": 3,
+    "name": "Netflix Random",
+    "version": "0.1.0",
+    "description": "Adding button to netflix for selecting random serial episode",
+    "permissions": ["tabs"],
+    "host_permissions": ["https://*.netflix.com/*"],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "web_accessible_resources": [
+      {
+        "resources": [
+          "assets/random-icon.png"
+        ],
+        "matches": ["https://*.youtube.com/*"]
+      }
+    ],
+    "content_scripts": [
+      {
+        "matches": ["https://*.netflix.com/*"],
+        "js": ["contentScript.js"]
+      }
+    ]
+}
