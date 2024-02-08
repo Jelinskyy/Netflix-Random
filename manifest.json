@@ -8,14 +8,6 @@
     "background": {
       "service_worker": "background.js"
     },
-    "web_accessible_resources": [
-      {
-        "resources": [
-          "assets/random-icon.png"
-        ],
-        "matches": ["https://*.youtube.com/*"]
-      }
-    ],
     "content_scripts": [
       {
         "matches": ["https://*.netflix.com/*"],
