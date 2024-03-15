@@ -6,7 +6,7 @@
     });
 
     chrome.runtime.onMessage.addListener((message, sender, response) => {
-        if (message.type === "Api.GetEpisodeId") {
+        if (message.type === "Api.SelectRandomEpisode") {
             console.log(message.result)
         } 
     });
@@ -43,7 +43,7 @@
     const selectRandomEpisode = async (titleId) => {
         chrome.runtime.sendMessage(
             {
-                type: "Api.GetEpisodeId",
+                type: "Api.SelectRandomEpisode",
                 titleId: titleId
             }
         );
