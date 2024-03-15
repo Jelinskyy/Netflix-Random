@@ -11,4 +11,5 @@ chrome.tabs.onUpdated.addListener((tabId, tab) => {
         }
     }
 });
-  
+
+importScripts("apiServiceWorker.js")

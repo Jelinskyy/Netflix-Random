@@ -1,9 +1,13 @@
 (() => {
-    chrome.runtime.onMessage.addListener((obj, sender, response) => {
-        const { type, value, videoId } = obj;
-    
-        if (type === "NewBrowse") {
+    chrome.runtime.onMessage.addListener((message, sender, response) => {
+        if (message.type === "NewBrowse") {
             newBrowseLoaded();
+        } 
+    });
+
+    chrome.runtime.onMessage.addListener((message, sender, response) => {
+        if (message.type === "GetConfig") {
+            console.log(message.result)
         } 
     });
 
@@ -36,18 +40,27 @@
         }
     }
 
-    const selectRandomEpisode = () => {
-        const episodes = [];
-        const episodeSelectorList = document.getElementsByClassName("episodeSelector-container")[0];
+    const selectRandomEpisode = async () => {
+        chrome.runtime.sendMessage(
+            {type: "GetConfig"}
+        );
 
-        for(const child of episodeSelectorList.children){
-            if(child.classList.contains("episode-item")){
-                episodes.push(child);
-            }
-        }
-
-        console.log(episodes)
-        episodes[Math.floor(Math.random() * episodes.length)].click();
+        // const url = 'https://unogsng.p.rapidapi.com/episodes?netflixid=81091393';
+        // const options = {
+        //     method: 'GET',
+        //     headers: {
+        //         'X-RapidAPI-Key': config["api"]["key"],
+        //         'X-RapidAPI-Host': config["api"]["host"]
+        //     }
+        // };
+        
+        // try {
+        //     const response = await fetch(url, options);
+        //     const result = await response.text();
+        //     console.log(result);
+        // } catch (error) {
+        //     console.error(error);
+        // }
     }
 
     //Making sure that function'll be triggered after page refresh  
