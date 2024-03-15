@@ -1,17 +1,17 @@
 (() => {
     chrome.runtime.onMessage.addListener((message, sender, response) => {
         if (message.type === "NewBrowse") {
-            newBrowseLoaded();
+            newBrowseLoaded(message.titleId);
         } 
     });
 
     chrome.runtime.onMessage.addListener((message, sender, response) => {
-        if (message.type === "GetConfig") {
+        if (message.type === "Api.GetEpisodeId") {
             console.log(message.result)
         } 
     });
 
-    const newBrowseLoaded = () => {
+    const newBrowseLoaded = (titleId) => {
         const randomButtonExists = document.getElementById("randomBtn");
 
         if(!randomButtonExists) {
@@ -36,31 +36,17 @@
             buttonInnerDiv.appendChild(iconPlaceholder);
             iconPlaceholder.appendChild(icon);
 
-            randomButton.addEventListener("click", selectRandomEpisode);
+            randomButton.addEventListener("click", () => {selectRandomEpisode(titleId)});
         }
     }
 
-    const selectRandomEpisode = async () => {
+    const selectRandomEpisode = async (titleId) => {
         chrome.runtime.sendMessage(
-            {type: "GetConfig"}
+            {
+                type: "Api.GetEpisodeId",
+                titleId: titleId
+            }
         );
-
-        // const url = 'https://unogsng.p.rapidapi.com/episodes?netflixid=81091393';
-        // const options = {
-        //     method: 'GET',
-        //     headers: {
-        //         'X-RapidAPI-Key': config["api"]["key"],
-        //         'X-RapidAPI-Host': config["api"]["host"]
-        //     }
-        // };
-        
-        // try {
-        //     const response = await fetch(url, options);
-        //     const result = await response.text();
-        //     console.log(result);
-        // } catch (error) {
-        //     console.error(error);
-        // }
     }
 
     //Making sure that function'll be triggered after page refresh  
