@@ -50,5 +50,5 @@
     }
 
     //Making sure that function'll be triggered after page refresh  
-    newBrowseLoaded();
+    chrome.runtime.sendMessage({type: "Page.Refreshed"})
 })();
