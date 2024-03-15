@@ -1,12 +1,10 @@
 chrome.tabs.onUpdated.addListener((tabId, tab) => {
     if(tab.url) {
-        if(tab.url.includes("jbv=")){
-            const queryParameters = tab.url.split("?")[1];
-            const urlParameters = new URLSearchParams(queryParameters);
-            
-            console.log(queryParameters)
+        if(tab.url.includes("/browse?jbv=")){
+            const titleId = tab.url.split("?")[1].substr(4);
             chrome.tabs.sendMessage(tabId, {
                 type: "NewBrowse",
+                titleId: titleId
             });
         }
     }
